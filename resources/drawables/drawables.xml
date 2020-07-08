@@ -1,0 +1,6 @@
+<drawables>
+    <bitmap id="LauncherIcon" filename="icon.png" />
+  	<bitmap id="battery_back" x="center" y="center"  filename="../drawables/battery_000.png" />
+	<bitmap id="battery_front" x="center" y="center"  filename="../drawables/battery_100.png" />
+	<bitmap id="battery_coppertops" x="center" y="center" filename="battery_coppertops.png" />
+</drawables>
