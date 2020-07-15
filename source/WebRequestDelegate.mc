@@ -6,15 +6,11 @@
 
 using Toybox.Communications;
 using Toybox.WatchUi;
-using Toybox.Cryptography;
-using Toybox.Math;
 using Toybox.System;
 using Toybox.Lang;
 using Toybox.StringUtil;
 
 class WebRequestDelegate extends WatchUi.BehaviorDelegate {
-    
-    const TOKEN_SIZE = 22;
     
     var parentView;
     
@@ -39,45 +35,51 @@ class WebRequestDelegate extends WatchUi.BehaviorDelegate {
         makeRequest();
         return true;
     }
-    
-    function buildToken() {
-    	var time = System.getClockTime();
-	    Math.srand(time.sec);
-	    var token = new [TOKEN_SIZE]b;
-	    for(var i = 0; i < TOKEN_SIZE; i++)
-	    {
-	    	token.add(Math.rand() % 64);
-	    }
-	    return token;
-	}
-    
-    function buildHash(token) {
-	    
-	    var hash = new Cryptography.Hash({ :algorithm => Cryptography.HASH_MD5 });
-	
-	    // Add the byte arrays to the hash
-	    hash.update(token);
-	
-	    return hash.digest(); // Return computed hash as a ByteArray
-	}
 
-	function makeRequest() {
-       //var url = "https://api.openvehicles.com:6869/api/charge/H23VAS";                     
-	   var url = "https://c0tak3t4w4.execute-api.us-east-1.amazonaws.com/dev/ovms/charge";
-       var params = {};
+	function makeRequest() {                  
+	   	var url = "https://uic35l8x77.execute-api.us-east-1.amazonaws.com/prod/ovms/charge";
+	   
+	   	var vehicle_id = "";
+	   	var username = "";
+	   	var password = "";
+	   
+	   	try {
+		   	if ( Toybox.Application has :Storage ) {
+	       		vehicle_id = Application.Properties.getValue("vehicleid");
+	       		username = Application.Properties.getValue("username");
+	       		password = Application.Properties.getValue("token");
+		   	}
+			else {
+		   	   	vehicle_id = Application.getApp().getProperty("vehicleid");
+		   	   	username = Application.getApp().getProperty("username");
+		   	   	password = Application.getApp().getProperty("token");
+		   	}
+		}
+		catch(ex instanceof InvalidKeyException) {
+			parentView.credentialsSet = false;
+			return;
+		}
+		catch(ex) {
+			return;
+		}
+	   	
+       	var params = {
+        	"vehicle_id" => vehicle_id,
+       		"username" => username,
+       	   	"password" => password
+       	};
 
-       var options = {                                             
-           :method => Communications.HTTP_REQUEST_METHOD_GET,      
-           :headers => {                                           
-                   "Content-Type" => Communications.REQUEST_CONTENT_TYPE_URL_ENCODED},
-                                                                   
-           :responseType => Communications.HTTP_RESPONSE_CONTENT_TYPE_JSON
-       };
+       	var options = {                                             
+        	:method => Communications.HTTP_REQUEST_METHOD_GET,      
+           	:headers => {                                           
+            	       "Content-Type" => Communications.REQUEST_CONTENT_TYPE_URL_ENCODED},
+                                                               
+           	:responseType => Communications.HTTP_RESPONSE_CONTENT_TYPE_JSON
+       	};
        
+       	var responseCallback = method(:onReceive);                  
 
-       var responseCallback = method(:onReceive);                  
-
-       Communications.makeWebRequest(url, params, options, method(:onReceive));
+       	Communications.makeWebRequest(url, params, options, method(:onReceive));
 	}
 
     // Receive the data from the web request
@@ -87,13 +89,14 @@ class WebRequestDelegate extends WatchUi.BehaviorDelegate {
             parentView.onReceive(data);
         }
         else if(responseCode == Communications.BLE_CONNECTION_UNAVAILABLE){
+        	parentView.connectionAvailable = false;
         	parentView.onReceive("Conn. Unavail.");
         }
         else if(responseCode == Communications.NETWORK_REQUEST_TIMED_OUT) {
         	parentView.onReceive("Timeout:" + responseCode.toString());
         } 
         else {
-            parentView.onReceive("Failed\nError: " + responseCode.toString());
+            parentView.onReceive("Error: " + responseCode.toString());
         }
     }
 }

@@ -1,0 +1,5 @@
+<properties>
+    <property id="vehicleid" type="string"></property>
+    <property id="username" type="string"></property>
+    <property id="token" type="string"></property>
+</properties>

@@ -1,0 +1,12 @@
+<strings>
+	<string id="AppName">OVMS</string>
+	<string id="VehicleIdTitle">Identifiant du véhicule</string>
+	<string id="UsernameTitle">Nom d'utilisateur</string>
+	<string id="TokenTitle">Mot de passe ou jeton</string>
+	<string id="ConnUnavail">Connexion non disponible</string>
+	<string id="NoCredentialsSet">Entrez paramètres\nde connexion</string>
+	<string id="estimate">estimé</string>
+	<string id="ideal">idéal</string>
+	<string id="chargeStopped">non branché</string>
+	<string id="charging">en recharge</string>
+</strings>

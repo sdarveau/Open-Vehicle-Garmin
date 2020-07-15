@@ -16,6 +16,11 @@ class LeafStatusApp extends Application.AppBase {
     // onStop() is called when your application is exiting
     function onStop(state) {
     }
+    
+    function onSettingsChanged() {
+    	AppBase.onSettingsChanged();
+    	mWebRequestDelegate.makeRequest();
+    }
 
     // Return the initial view of your application here
     function getInitialView() {

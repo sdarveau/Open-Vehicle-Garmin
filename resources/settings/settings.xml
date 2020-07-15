@@ -1,0 +1,15 @@
+<settings>
+
+	<setting propertyKey="@Properties.vehicleid" title="@Strings.VehicleIdTitle">
+        <settingConfig type="alphaNumeric" required="true" />
+    </setting>
+    
+    <setting propertyKey="@Properties.username" title="@Strings.UsernameTitle">
+        <settingConfig type="alphaNumeric" required="true" />
+    </setting>
+    
+    <setting propertyKey="@Properties.token" title="@Strings.TokenTitle">
+        <settingConfig type="alphaNumeric" required="true" />
+    </setting>
+
+</settings>
