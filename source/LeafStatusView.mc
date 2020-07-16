@@ -51,8 +51,26 @@ class LeafStatusView extends WatchUi.View {
     function onUpdate(dc) {
     	System.println("onUpdate");
        
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
+        dc.setColor(Graphics.COLOR_WHITE, 0x162540);
         dc.clear();
+        
+        var vehicleid = "";
+        try {
+	        if ( Toybox.Application has :Storage ) {
+	        	vehicleid = Application.Properties.getValue("vehicleid");
+	        }
+	        else {
+	        	vehicleid = Application.getApp().getProperty("vehicleid");
+	        }
+	    }
+	    catch(ex instanceof Application.Properties.InvalidKeyException) {
+	    	credentialsSet = false;
+	    }
+        
+        var vehicleidLabel = View.findDrawableById("id_vehicleid");
+        vehicleidLabel.setText(vehicleid);
+        vehicleidLabel.draw(dc);
+        
         
         if ( !connectionAvailable ) {
         	dc.drawText(

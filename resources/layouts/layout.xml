@@ -1,5 +1,6 @@
 <layout id="MainLayout">
 	
+	<label id="id_vehicleid" text="" x="50%" y="10%" justification="Gfx.TEXT_JUSTIFY_CENTER" font="Gfx.FONT_TINY" color="Gfx.COLOR_WHITE" />
 	
 	<label id="id_percentage" text="%" x="50%" y="30%" justification="Gfx.TEXT_JUSTIFY_CENTER" font="Gfx.FONT_SMALL" color="Gfx.COLOR_WHITE" />
 	

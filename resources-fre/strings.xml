@@ -1,5 +1,5 @@
 <strings>
-	<string id="AppName">OVMS</string>
+	<string id="AppName">Open-Vehicles</string>
 	<string id="VehicleIdTitle">Identifiant du véhicule</string>
 	<string id="UsernameTitle">Nom d'utilisateur</string>
 	<string id="TokenTitle">Mot de passe ou jeton</string>

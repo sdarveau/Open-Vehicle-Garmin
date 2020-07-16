@@ -1,5 +1,5 @@
 <strings>
-	<string id="AppName">OVMS</string>
+	<string id="AppName">Open-Vehicles</string>
 	<string id="VehicleIdTitle">Vehicle ID</string>
 	<string id="UsernameTitle">Username</string>
 	<string id="TokenTitle">Password/Token</string>

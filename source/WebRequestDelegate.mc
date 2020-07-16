@@ -38,7 +38,6 @@ class WebRequestDelegate extends WatchUi.BehaviorDelegate {
 
 	function makeRequest() {                  
 	   	var url = "https://uic35l8x77.execute-api.us-east-1.amazonaws.com/prod/ovms/charge";
-	   
 	   	var vehicle_id = "";
 	   	var username = "";
 	   	var password = "";
@@ -55,8 +54,10 @@ class WebRequestDelegate extends WatchUi.BehaviorDelegate {
 		   	   	password = Application.getApp().getProperty("token");
 		   	}
 		}
-		catch(ex instanceof InvalidKeyException) {
+		catch(ex instanceof Application.Properties.InvalidKeyException) {
 			parentView.credentialsSet = false;
+			System.println("Invalid key exception");
+			WatchUi.requestUpdate();
 			return;
 		}
 		catch(ex) {
@@ -84,7 +85,7 @@ class WebRequestDelegate extends WatchUi.BehaviorDelegate {
 
     // Receive the data from the web request
     function onReceive(responseCode, data) {
-    	System.print("response code: " + responseCode.toString());
+    	System.println("response code: " + responseCode.toString());
         if (responseCode == 200) {
             parentView.onReceive(data);
         }
