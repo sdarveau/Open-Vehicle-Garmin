@@ -2,7 +2,7 @@
 	<string id="AppName">Open-Vehicles</string>
 	<string id="VehicleIdTitle">Vehicle ID</string>
 	<string id="UsernameTitle">Username</string>
-	<string id="TokenTitle">Password/Token</string>
+	<string id="TokenTitle">Password</string>
 	<string id="ConnUnavail">No connection available</string>
 	<string id="NoCredentialsSet">No credentials</string>
 	<string id="estimate">estimate</string>
